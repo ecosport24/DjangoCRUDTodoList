@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{% url 'update_todo' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" value="{{data.id}}" name="todo_id">
+
+        <div class="row" style="margin-top:60px">
+            <div class="col s8">
+                <div class="input-field" >
+                    <i class="material-icons prefix">assignment</i>
+                  <input id="text" type="text" name="todo_text" class="validate" value="{{data.text}}">
+                  <label for="text">Update Todo</label>
+                </div>
+            </div>
+            <div class="col s4" style="margin-top:20px">
+                 <button class="btn waves-effect waves-light" type="submit" name="action">Update
+                    <i class="material-icons right">send</i>
+                  </button>
+            </div>
+        </div>
+    </form>
+
+
+             <ul class="collection">
+                 {% for todo_item in todo_items %}
+
+                 <li class="collection-item">
+                     <div>{{todo_item.text|title}}
+                        <a href="select_todo/{{todo_item.id}}" class="secondary-content">
+                            <i class="material-icons">update</i>
+                        </a>
+                         <a href="delete_todo/{{todo_item.id}}" class="secondary-content">
+                            <i class="material-icons icon-danger">delete</i>
+                        </a>
+                     </div>
+                 </li>
+                 {% endfor %}
+            </ul>
+{% endblock content %}
